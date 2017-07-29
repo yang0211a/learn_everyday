@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>02-动态路由匹配</title>
+</head>
+<body>
+    <div id="app">
+        <p>
+            <router-link to="/user/id1">/user/foo</router-link>
+            <router-link to="/user/id2">/user/bar</router-link>
+        </p>
+        <router-view></router-view>
+    </div>
+    <script type="text/javascript" src="../lib/vue.js"></script>
+    <script type="text/javascript" src="../lib/vue-router.js"></script>
+    <script type="text/javascript">
+        const User={
+            template:`<div> User {{ $route.params.id }}</div>`
+        }
+        const router=new VueRouter({
+            routes:[
+                {path:'/user/:id',component:User}
+            ]
+        })
+        const app=new Vue({router}).$mount('#app');
+        /*
+        * 可以在一个路由中设置多段路径参数，对应的值都会设置到$route.params中。
+        * 例如 /user/:username 匹配 /user/evan  $route.params 对应{username:'evan'}
+        * /user/:username/post/:post_id 匹配 /user/evan/post/123 $route.params对应 {username:'evan','post_id':123}
+        * */
+        //2 响应路由参数的变化
+        /*当使用路由参数时，例如从/user/foo 导航到 user/bar 原来的组件实例会被复用。因为两个路由都渲染同个组件，比起销毁再创建，复用则显得更加高效。不过，这也意味着组件的生命周期钩子不会再被调用*/
+    </script>
+</body>
+</html>
